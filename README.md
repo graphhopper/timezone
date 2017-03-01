@@ -30,7 +30,7 @@ Name | Description
 :------|:-----
 timezone | time zone id as defined here: http://efele.net/maps/tz/world/
 local_time | local time considering daylight saving time in hour, minute, second and nano
-offset | offset in relation to UTC considering daylight saving time
+offset | offset in relation to UTC considering daylight saving time (in seconds)
 
 ###Example 
 
