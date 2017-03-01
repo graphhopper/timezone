@@ -20,6 +20,8 @@ import java.util.Map;
  */
 public class TZShapeReader {
 
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TZShapeReader.class);
+
     private Quadtree quadtree;
 
     public TZShapeReader(Quadtree quadtree) {
@@ -40,17 +42,14 @@ public class TZShapeReader {
 
         FeatureIterator<SimpleFeature> features = collection.features();
         int count = 0;
-        System.out.println("reading world time zones ...");
+        LOGGER.info("reading world time zones ...");
         while (features.hasNext()) {
             count++;
             SimpleFeature feature = features.next();
             ReferencedEnvelope referencedEnvelope = new ReferencedEnvelope(feature.getBounds());
             quadtree.insert(referencedEnvelope,feature);
-//            System.out.print(feature.getID());
-//            System.out.print(": ");
-//            System.out.println(feature.getDefaultGeometryProperty().getValue());
         }
-        System.out.println(count + " features read");
+        LOGGER.info(count + " features read");
 
     }
 }
