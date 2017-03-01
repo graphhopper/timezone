@@ -17,6 +17,21 @@ run app
 
 You need to specify two parameters, (Unix) timestamp and location (lat,lon), and you will be provided with the according timezone, local time and offset to UTC. Local time and offset consider daylight saving time (dst).
 
+Input:
+
+Parameter | Description
+:------|:-----
+timestamp | Unix timestamp
+location | latitude, longitude
+
+Output:
+
+Name | Description
+:------|:-----
+timezone | time zone id as defined here: http://efele.net/maps/tz/world/
+local_time | local time considering daylight saving time in hour, minute, second and nano
+offset | offset in relation to UTC considering daylight saving time
+
 ###Example 
 
 request
