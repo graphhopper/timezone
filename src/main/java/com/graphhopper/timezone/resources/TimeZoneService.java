@@ -50,7 +50,9 @@ public class TimeZoneService {
     @Timed
     public Response handle(@Context UriInfo uriInfo){
         List<String> location = uriInfo.getQueryParameters().get("location");
+        if(location.size() != 1) throwError(BAD_REQUEST.getStatusCode(),"location missing. a location needs to be specified");
         List<String> timestamps = uriInfo.getQueryParameters().get("timestamp");
+        if(timestamps.size() != 1) throwError(BAD_REQUEST.getStatusCode(),"timestamp missing. unix timestamp needs to be specified");
         String[] locationTokens = location.get(0).split(",");
         double lat = Double.parseDouble(locationTokens[0]);
         double lon = Double.parseDouble(locationTokens[1]);
@@ -79,12 +81,16 @@ public class TimeZoneService {
                 return (String)(feature.getAttribute("TZID"));
             }
         }
-        ErrorMessage errorMessage = new ErrorMessage(BAD_REQUEST.getStatusCode(), "could not localize location " + lat + ", " + lon);
-        throw new WebApplicationException(errorMessage.getMessage(), Response.status(BAD_REQUEST.getStatusCode())
+        throwError(BAD_REQUEST.getStatusCode(),"could not localize location " + lat + ", " + lon);
+        return null;
+    }
+
+    private void throwError(int statusCode, String msg){
+        ErrorMessage errorMessage = new ErrorMessage(statusCode, msg);
+        throw new WebApplicationException(errorMessage.getMessage(), Response.status(statusCode)
                 .entity(errorMessage)
                 .type(MediaType.APPLICATION_JSON).
                         build());
-
     }
 
 }
