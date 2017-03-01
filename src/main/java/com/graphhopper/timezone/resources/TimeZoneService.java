@@ -16,13 +16,11 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.index.quadtree.Quadtree;
+import io.dropwizard.jersey.errors.ErrorMessage;
 import org.geotools.geometry.jts.JTSFactoryFinder;
 import org.opengis.feature.simple.SimpleFeature;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -30,6 +28,8 @@ import javax.ws.rs.core.UriInfo;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.TimeZone;
+
+import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
 @Path("/timezone")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -79,7 +79,12 @@ public class TimeZoneService {
                 return (String)(feature.getAttribute("TZID"));
             }
         }
-        return "";
+        ErrorMessage errorMessage = new ErrorMessage(BAD_REQUEST.getStatusCode(), "could not localize location " + lat + ", " + lon);
+        throw new WebApplicationException(errorMessage.getMessage(), Response.status(BAD_REQUEST.getStatusCode())
+                .entity(errorMessage)
+                .type(MediaType.APPLICATION_JSON).
+                        build());
+
     }
 
 }
