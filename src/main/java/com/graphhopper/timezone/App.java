@@ -49,8 +49,6 @@ public class App extends Application<AppConfig> {
 
     @Override
     public void initialize(Bootstrap<AppConfig> bootstrap) {
-        // demo and docs are at
-        // https://github.com/graphhopper/static-assets
 
         // we need only the spec json to be in sync with repo
         bootstrap.addBundle(new AssetsBundle("/assets", "/lib", null, "lib"));
