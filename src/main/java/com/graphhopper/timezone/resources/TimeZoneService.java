@@ -26,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -49,10 +50,20 @@ public class TimeZoneService {
     @GET
     @Timed
     public Response handle(@Context UriInfo uriInfo){
-        List<String> location = uriInfo.getQueryParameters().get("location");
-        if(location.size() != 1) throwError(BAD_REQUEST.getStatusCode(),"location missing. a location needs to be specified");
-        List<String> timestamps = uriInfo.getQueryParameters().get("timestamp");
-        if(timestamps.size() != 1) throwError(BAD_REQUEST.getStatusCode(),"timestamp missing. unix timestamp needs to be specified");
+        List<String> location = new ArrayList<>();
+        if(uriInfo.getQueryParameters().containsKey("location")) {
+            location = uriInfo.getQueryParameters().get("location");
+            if (location.size() != 1)
+                throwError(BAD_REQUEST.getStatusCode(), "only one location needs to be specified");
+        }
+        else throwError(BAD_REQUEST.getStatusCode(), "location missing. a location needs to be specified");;
+        List<String> timestamps = new ArrayList<>();
+        if(uriInfo.getQueryParameters().containsKey("timestamp")) {
+            timestamps = uriInfo.getQueryParameters().get("timestamp");
+            if (timestamps.size() != 1)
+                throwError(BAD_REQUEST.getStatusCode(), "only one unix timestamp needs to be specified");
+        }
+        else throwError(BAD_REQUEST.getStatusCode(), "timestamp missing. unix timestamp needs to be specified");
         String[] locationTokens = location.get(0).split(",");
         double lat = Double.parseDouble(locationTokens[0]);
         double lon = Double.parseDouble(locationTokens[1]);
