@@ -1,0 +1,58 @@
+# general settings:
+# http://www.dropwizard.io/manual/configuration.html
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+
+  adminConnectors:
+    - type: http
+      port: 8081
+
+logging:
+  level: INFO
+
+  loggers:
+    "org.hibernate": INFO
+    "com.graphhopper.vrp": DEBUG
+    "com.graphhopper.jsprit": WARN
+
+  appenders:
+    - type: console
+      timeZone: UTC
+      logFormat: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    - type: file
+      timeZone: UTC
+      currentLogFilename: ./logs/vrp-app.log
+      archivedLogFilenamePattern: ./logs/vrp-app.%d.log.gz
+      archivedFileCount: 5
+      logFormat: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+
+## GraphHopper specific:
+#externalAPIKey: 127280fe-0d3e-49db-9da9-c5e378ab6af4
+## If false, externalAPIKey is only set if host is graphhopper.com. If true, it is always set
+#enforceExternalAPIKey: false
+#matrixHost: https://graphhopper.com/api/1/matrix
+#matrixUseSyncUntil: 20
+#matrixAsyncSleep: 400
+#routingHost: https://graphhopper.com/api/1/route
+#
+## checks the matrix availability
+#healthCheckURL: https://graphhopper.com/api/1/matrix?point=49%2C8.2&point=54%2C12.1&type=json&vehicle=car&out_array=times&out_array=distances&debug=true&key=127280fe-0d3e-49db-9da9-c5e378ab6af4
+#
+## local installation
+##externalAPIKey:
+##matrixHost: http://localhost:8989/matrix
+##routingHost: http://localhost:8989/route
+#
+## asynchronous cache needs some properties:
+#
+#timeToKeepJobsInMemory: 36000000
+#
+#noPaidWorkerPools: 4
+#noPaidWorkersPerPool: 3
+#
+#noFreeWorkerPools: 1
+#noFreeWorkersPerPool: 1
