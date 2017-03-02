@@ -3,13 +3,15 @@ timezone app
 
 Our timezone app turns your location and timestamp into timezone and local time. Thus, if you need local time in your application, just ask GraphHopper timezone. It is microservice you can run wherever you like.
 
-###Clone, Build and Run
+###Clone, Build, Run and Use
 
 clone: `git clone https://github.com/graphhopper/timezone.git`
 
 build: `cd timezone/ && mvn package`
 
 run: `java -jar ./target/timezone-1.0-SNAPSHOT.jar server ./app.yml`
+
+use: open browser and do `http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
 
 ####Request app
 
