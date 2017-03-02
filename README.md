@@ -17,6 +17,8 @@ use:
 - browser: `http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
 - curl: `curl "http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577"`
 
+note: requires java 8
+
 ####Request app
 
 You need to specify two parameters, (Unix) timestamp and location (lat,lon), and you will be provided with the according timezone, local time and offset to UTC. Local time and offset consider daylight saving time (dst).
