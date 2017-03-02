@@ -6,6 +6,8 @@ Our timezone app turns your location and timestamp into timezone and local time.
 
 ###Example 
 
+####Example 1
+
 request: `http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
 
 response:
@@ -28,6 +30,32 @@ response:
         "nano": 0
     }
 
+}
+
+```
+
+####Example 2
+
+request: `http://localhost:8080/timezone?timestamp=1488489592&location=48.873748,2.344482&language=fr`
+
+response:
+
+```json
+{
+    "timezone": "Europe/Paris",
+    "timezone_name": "Heure d'Europe centrale",
+    "local_time": {
+        "offset": 3600,
+        "year": 2017,
+        "month": "mars",
+        "day_of_month": 2,
+        "day_of_week": "jeudi",
+        "month_value": 3,
+        "hour": 22,
+        "minute": 19,
+        "second": 52,
+        "nano": 0
+    }
 }
 
 ```
