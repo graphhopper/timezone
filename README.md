@@ -16,27 +16,20 @@ response:
     "timezone": "America/New_York",
     "timezone_name": "Eastern Standard Time",
     "local_time": {
-        "offset": {
-            "totalSeconds": -18000,
-            "id": "-05:00",
-            "rules": {
-                "fixedOffset": true,
-                "transitions": [ ],
-                "transitionRules": [ ]
-            }
-        },
+        "offset": -18000,
         "year": 2017,
-        "month": "MARCH",
-        "dayOfMonth": 2,
-        "dayOfWeek": "THURSDAY",
-        "dayOfYear": 61,
-        "monthValue": 3,
+        "month": "March",
+        "day_of_month": 2,
+        "day_of_week": "Thursday",
+        "month_value": 3,
         "hour": 16,
         "minute": 19,
         "second": 52,
         "nano": 0
     }
+
 }
+
 ```
 
 try your own example:
