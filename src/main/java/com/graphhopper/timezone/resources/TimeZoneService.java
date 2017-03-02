@@ -25,7 +25,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.time.LocalTime;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -79,15 +81,16 @@ public class TimeZoneService {
         String timeZoneId = getTimeZone(lat,lon);
         TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
 
-        LocalTime localTime = getLocalTime(timeZone);
+        OffsetDateTime localTime = getLocalTime(timeZone,timestamp);
 
-        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId,localTime,timeZone.getOffset(timestamp) / 1000, timeZone.getDisplayName(locale));
+        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId,localTime, timeZone.getDisplayName(locale));
         return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
 
     }
 
-    private LocalTime getLocalTime(TimeZone timeZone){
-        return LocalTime.now(timeZone.toZoneId());
+    private OffsetDateTime getLocalTime(TimeZone timeZone, long timestamp){
+        return OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(timeZone.getID()));
+//        return LocalTime.now(timeZone.toZoneId());
     }
 
     private String getTimeZone(double lat, double lon){
