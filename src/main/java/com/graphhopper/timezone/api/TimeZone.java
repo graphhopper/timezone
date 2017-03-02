@@ -3,7 +3,6 @@ package com.graphhopper.timezone.api;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
-import java.time.OffsetDateTime;
 
 /**
  * Created by schroeder on 01/03/17.
@@ -15,9 +14,9 @@ public class TimeZone {
 
     private String displayName;
 
-    private OffsetDateTime localTime;
+    private LocalTime localTime;
 
-    public TimeZone(String timeZoneId, OffsetDateTime localTime, String displayName) {
+    public TimeZone(String timeZoneId, LocalTime localTime, String displayName) {
         this.timeZoneId = timeZoneId;
         this.localTime = localTime;
         this.displayName = displayName;
@@ -34,7 +33,7 @@ public class TimeZone {
     }
 
     @JsonProperty("local_time")
-    public OffsetDateTime getLocalTime() {
+    public LocalTime getLocalTime() {
         return localTime;
     }
 

@@ -11,6 +11,7 @@
 package com.graphhopper.timezone.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import com.graphhopper.timezone.api.LocalTime;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -80,11 +81,8 @@ public class TimeZoneService {
         long timestamp = Long.parseLong(timestamps.get(0));
         String timeZoneId = getTimeZone(lat,lon);
         TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
-
         OffsetDateTime localTime = getLocalTime(timeZone,timestamp);
-
-
-        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId,localTime, timeZone.getDisplayName(locale));
+        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId, new LocalTime(localTime,locale), timeZone.getDisplayName(locale));
         return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
 
     }
