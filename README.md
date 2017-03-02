@@ -14,14 +14,28 @@ response:
 {
 
     "timezone": "America/New_York",
+    "timezone_name": "Eastern Standard Time",
     "local_time": {
-        "hour": 7,
-        "minute": 58,
-        "second": 2,
-        "nano": 147000000
-    },
-    "offset": -18000
-
+        "offset": {
+            "totalSeconds": -18000,
+            "id": "-05:00",
+            "rules": {
+                "fixedOffset": true,
+                "transitions": [ ],
+                "transitionRules": [ ]
+            }
+        },
+        "year": 2017,
+        "month": "MARCH",
+        "dayOfMonth": 2,
+        "dayOfWeek": "THURSDAY",
+        "dayOfYear": 61,
+        "monthValue": 3,
+        "hour": 16,
+        "minute": 19,
+        "second": 52,
+        "nano": 0
+    }
 }
 ```
 
