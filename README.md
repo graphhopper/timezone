@@ -124,7 +124,22 @@ Name | Description
 :------|:-----
 timezone | time zone id as defined here: http://efele.net/maps/tz/world/
 timezone_name | full name of time zone
-local_time | local time considering daylight saving time in hour, minute, second and nano etc.
+local_time | local time information considering daylight saving time 
+
+local_time:
+
+Name | Description
+:------|:-----
+offset | offset to UTC in seconds
+year | -
+month | -
+day_of_month | -
+day_of_week | -
+month_value | -
+hour | -
+minute | -
+second | -
+nano | -
 
 
 ###TZ data
