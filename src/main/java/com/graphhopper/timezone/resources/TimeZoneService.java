@@ -83,14 +83,15 @@ public class TimeZoneService {
 
         OffsetDateTime localTime = getLocalTime(timeZone,timestamp);
 
+
         com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId,localTime, timeZone.getDisplayName(locale));
         return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
 
     }
 
     private OffsetDateTime getLocalTime(TimeZone timeZone, long timestamp){
-        return OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(timeZone.getID()));
-//        return LocalTime.now(timeZone.toZoneId());
+        OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(timeZone.getID()));
+        return offsetDateTime;
     }
 
     private String getTimeZone(double lat, double lon){
