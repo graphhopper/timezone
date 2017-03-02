@@ -60,6 +60,32 @@ response:
 
 ```
 
+###Example 3
+
+request: `http://localhost:8080/timezone?timestamp=1488489592&location=36.031332,138.796876&language=ja`
+
+response:
+
+```json
+{
+    "timezone": "Asia/Tokyo",
+    "timezone_name": "日本標準時",
+    "local_time": {
+        "offset": 32400,
+        "year": 2017,
+        "month": "3月",
+        "day_of_month": 3,
+        "day_of_week": "金曜日",
+        "month_value": 3,
+        "hour": 6,
+        "minute": 19,
+        "second": 52,
+        "nano": 0
+    }
+}
+
+```
+
 try your own example:
 - get current unix timestamp from here: http://www.unixtimestamp.com/
 - and coordinates from here: https://graphhopper.com/maps/ (just right click wherever you like to specify start and you will be provided with the coordinates in the start field. just copy and paste it as it is)
