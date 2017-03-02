@@ -6,7 +6,9 @@ Our timezone app turns your location and timestamp into timezone and local time.
 ###Clone, Build and Run
 
 clone: `git clone https://github.com/graphhopper/timezone.git`
+
 build: `mvn package`
+
 run: `java -jar timezone-1.0-SNAPSHOT.jar server ../app.yml`
 
 ####Request app
