@@ -45,7 +45,7 @@ use:
 
 note: requires java 8
 
-####Request app
+###Input & Output
 
 You need to specify two parameters, (Unix) timestamp and location (lat,lon), and you will be provided with the according timezone, local time and offset to UTC. Local time and offset consider daylight saving time (dst).
 
