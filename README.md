@@ -6,11 +6,9 @@ Our timezone app turns your location and timestamp into timezone and local time.
 
 ###Example 
 
-request
+request: `http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
 
-`http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
-
-response
+response:
 
 ```json
 {
