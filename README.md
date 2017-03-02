@@ -1,6 +1,6 @@
 timezone app
 ============
-[![Build Status](https://travis-ci.org/graphhopper/timezone.svg?branch=master)
+![Build Status](https://travis-ci.org/graphhopper/timezone.svg?branch=master)
 
 Our timezone app turns your location and timestamp into timezone and local time. Thus, if you need local time in your application, just ask GraphHopper timezone. It is microservice you can run wherever you like.
 
