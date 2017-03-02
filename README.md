@@ -56,6 +56,6 @@ response
 ```
 
 ###TZ data
-Here it is described how you can update tz data (especially dst data) for your java environment.
+Here it is described how you can update tz data (especially dst data) for your java environment. Make sure you have the updated your java environment with the latest tz data, otherwise old DST data might yield wrong local times. For example, such events ["Russia Returns to Standard Time All Year"](https://www.timeanddate.com/news/time/russia-abandons-permanent-summer-time.html) cause wrong local time calculations. You can update your JDK/JRE as described here:
 
 http://www.oracle.com/technetwork/java/javase/tzupdater-readme-136440.html
