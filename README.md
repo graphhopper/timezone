@@ -59,6 +59,6 @@ response
 ```
 
 ###TZ data
-Make sure that you have updated your java environment with the latest tz data, otherwise old DST data might yield wrong local times. For example, such events ["Russia Returns to Standard Time All Year"](https://www.timeanddate.com/news/time/russia-abandons-permanent-summer-time.html) cause wrong local time calculations. You can update your JDK/JRE as described here:
+Make sure that you have updated your java environment with the latest tz data, otherwise old DST data might yield wrong local times. For example, such events ["Russia Returns to Standard Time All Year"](https://www.timeanddate.com/news/time/russia-abandons-permanent-summer-time.html) cause wrong local time calculations if you have not updated your JRE/JDK. You can update it as described here:
 
 http://www.oracle.com/technetwork/java/javase/tzupdater-readme-136440.html
