@@ -60,7 +60,7 @@ response:
 
 ```
 
-###Example 3
+####Example 3
 
 request: `http://localhost:8080/timezone?timestamp=1488489592&location=36.031332,138.796876&language=ja`
 
@@ -116,14 +116,15 @@ Parameter | Description
 :------|:-----
 timestamp | Unix timestamp
 location | latitude, longitude
+language | optional, default is 'en' - see the supported languages [here](http://www.oracle.com/technetwork/java/javase/javase7locales-334809.html)
 
 Output:
 
 Name | Description
 :------|:-----
 timezone | time zone id as defined here: http://efele.net/maps/tz/world/
-local_time | local time considering daylight saving time in hour, minute, second and nano
-offset | offset in relation to UTC considering daylight saving time (in seconds)
+timezone_name | full name of time zone
+local_time | local time considering daylight saving time in hour, minute, second and nano etc.
 
 
 ###TZ data
