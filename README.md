@@ -60,7 +60,7 @@ response
 
 try your own example:
 - get current unix timestamp from here: http://www.unixtimestamp.com/
-- and coordinates from here: https://graphhopper.com/maps/ (just right click wherever you like to specify start and you will be provided with the coordinates in the start field. just copy and paste as it is)
+- and coordinates from here: https://graphhopper.com/maps/ (just right click wherever you like to specify start and you will be provided with the coordinates in the start field. just copy and paste it as it is)
 
 ###TZ data
 Make sure that you have updated your java environment with the latest tz data, otherwise old DST data might yield wrong local times. For example, such events ["Russia Returns to Standard Time All Year"](https://www.timeanddate.com/news/time/russia-abandons-permanent-summer-time.html) cause wrong local time calculations if you have not updated your JRE/JDK. You can update it as described here:
