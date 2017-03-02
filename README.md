@@ -11,7 +11,10 @@ build: `cd timezone/ && mvn package`
 
 run: `java -jar ./target/timezone-1.0-SNAPSHOT.jar server ./app.yml`
 
-use: open browser and do `http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
+use: 
+
+- browser: `http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
+- curl: `curl "http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577"`
 
 ####Request app
 
