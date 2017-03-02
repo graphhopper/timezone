@@ -28,6 +28,7 @@ import javax.ws.rs.core.UriInfo;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
@@ -64,6 +65,13 @@ public class TimeZoneService {
                 throwError(BAD_REQUEST.getStatusCode(), "only one unix timestamp needs to be specified");
         }
         else throwError(BAD_REQUEST.getStatusCode(), "timestamp missing. unix timestamp needs to be specified");
+        Locale locale = Locale.forLanguageTag("en");
+        if(uriInfo.getQueryParameters().containsKey("language")) {
+            List<String> languages = uriInfo.getQueryParameters().get("language");
+            if (languages.size() != 1) throwError(BAD_REQUEST.getStatusCode(), "only one language needs to be specified");
+            locale = Locale.forLanguageTag(languages.get(0));
+        }
+
         String[] locationTokens = location.get(0).split(",");
         double lat = Double.parseDouble(locationTokens[0]);
         double lon = Double.parseDouble(locationTokens[1]);
@@ -73,7 +81,7 @@ public class TimeZoneService {
 
         LocalTime localTime = getLocalTime(timeZone);
 
-        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId,localTime,timeZone.getOffset(timestamp) / 1000);
+        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId,localTime,timeZone.getOffset(timestamp) / 1000, timeZone.getDisplayName(locale));
         return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
 
     }

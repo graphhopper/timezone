@@ -13,21 +13,27 @@ public class TimeZone {
     @NotNull
     private String timeZoneId;
 
+    private String displayName;
+
     private LocalTime localTime;
 
     private int offset;
 
-
-    public TimeZone(String timeZoneId, LocalTime localTime, int offset) {
+    public TimeZone(String timeZoneId, LocalTime localTime, int offset, String displayName) {
         this.timeZoneId = timeZoneId;
         this.localTime = localTime;
         this.offset = offset;
-
+        this.displayName = displayName;
     }
 
     @JsonProperty("timezone")
     public String getTimeZoneId() {
         return timeZoneId;
+    }
+
+    @JsonProperty("timezone_name")
+    public String getDisplayName() {
+        return displayName;
     }
 
     @JsonProperty("local_time")
@@ -39,5 +45,6 @@ public class TimeZone {
     public int getOffset(){
         return offset;
     }
+
 
 }
