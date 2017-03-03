@@ -114,7 +114,7 @@ Input:
 
 Parameter | Description
 :------|:-----
-timestamp | Unix timestamp
+timestamp | Unix timestamp (in seconds)
 location | latitude, longitude
 language | optional, default is 'en' - see the supported languages [here](http://www.oracle.com/technetwork/java/javase/javase7locales-334809.html)
 
