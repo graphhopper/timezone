@@ -4,9 +4,9 @@ timezone app
 
 Our timezone app turns your location and timestamp into timezone and local time. Thus, if you need local time in your application, just ask GraphHopper timezone. It is microservice you can run wherever you like.
 
-###Example 
+### Example 
 
-####Example 1
+#### Example 1
 
 request: `http://localhost:8080/timezone?timestamp=1488363179&location=40.713956,-75.767577`
 
@@ -34,7 +34,7 @@ response:
 
 ```
 
-####Example 2
+#### Example 2
 
 request: `http://localhost:8080/timezone?timestamp=1488489592&location=48.873748,2.344482&language=fr`
 
@@ -60,7 +60,7 @@ response:
 
 ```
 
-####Example 3
+#### Example 3
 
 request: `http://localhost:8080/timezone?timestamp=1488489592&location=36.031332,138.796876&language=ja`
 
@@ -91,7 +91,7 @@ try your own example:
 - and coordinates from here: https://graphhopper.com/maps/ (just right click wherever you like to specify start and you will be provided with the coordinates in the start field. just copy and paste it as it is)
 
 
-###Clone, Build, Run and Use
+### Clone, Build, Run and Use
 
 clone: `git clone https://github.com/graphhopper/timezone.git`
 
@@ -106,7 +106,7 @@ use:
 
 note: requires java 8
 
-###Input & Output
+### Input & Output
 
 You need to specify two parameters, (Unix) timestamp and location (lat,lon), and you will be provided with the according timezone, local time and offset to UTC. Local time and offset consider daylight saving time (dst).
 
@@ -142,7 +142,7 @@ second | -
 nano | -
 
 
-###TZ data
+### TZ data
 Make sure that you have updated your java environment with the latest tz data, otherwise old DST data might yield wrong local times. For example, such events ["Russia Returns to Standard Time All Year"](https://www.timeanddate.com/news/time/russia-abandons-permanent-summer-time.html) cause wrong local time calculations if you have not updated your JRE/JDK. You can update it as described here:
 
 http://www.oracle.com/technetwork/java/javase/tzupdater-readme-136440.html
