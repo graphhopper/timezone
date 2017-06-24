@@ -14,6 +14,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>packagecloud-maiBlivnok</id>
+            <url>packagecloud+https://packagecloud.io/maiBlivnok/timezone</url>
+        </repository>
+        <snapshotRepository>
+            <id>packagecloud-maiBlivnok</id>
+            <url>packagecloud+https://packagecloud.io/maiBlivnok/timezone</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.vividsolutions</groupId>
@@ -61,7 +72,16 @@
     </repositories>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>io.packagecloud.maven.wagon</groupId>
+                <artifactId>maven-packagecloud-wagon</artifactId>
+                <version>0.0.4</version>
+            </extension>
+        </extensions>
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
