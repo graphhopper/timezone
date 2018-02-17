@@ -1,4 +1,4 @@
-package com.graphhopper.timezone;
+package com.graphhopper.timezone.webservice;
 
 /*
  * Copyright 2014-2016 GraphHopper GmbH

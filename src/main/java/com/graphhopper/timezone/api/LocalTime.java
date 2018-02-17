@@ -34,6 +34,10 @@ public class LocalTime {
         second = offsetDateTime.getSecond();
         nano = offsetDateTime.getNano();
     }
+    
+    public LocalTime(OffsetDateTime offsetDateTime) {
+    	this(offsetDateTime, Locale.forLanguageTag("en"));
+    }
 
     @JsonProperty("offset")
     public int getOffset(){
