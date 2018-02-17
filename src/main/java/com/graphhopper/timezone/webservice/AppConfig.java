@@ -22,7 +22,6 @@ public class AppConfig extends io.dropwizard.Configuration {
 
     private String ipWhiteList = "";
 
-
     @JsonProperty(value = "ipBlackList")
     public String getIPBlackList() {
         return ipBlackList;
@@ -42,6 +41,4 @@ public class AppConfig extends io.dropwizard.Configuration {
     public void setIPWhiteList(String ipWhiteList) {
         this.ipWhiteList = ipWhiteList;
     }
-
-
 }

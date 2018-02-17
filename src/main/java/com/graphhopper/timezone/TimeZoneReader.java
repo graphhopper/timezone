@@ -20,39 +20,39 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.index.quadtree.Quadtree;
 
 public class TimeZoneReader {
-	
-	private GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory(null);
-	
-	private Quadtree quadtree;
-	
-	public TimeZoneReader() throws IOException {
-		this.quadtree = new Quadtree();
+
+    private GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory(null);
+
+    private Quadtree quadtree;
+
+    public TimeZoneReader() throws IOException {
+        this.quadtree = new Quadtree();
         URL world = this.getClass().getResource("tz_world.shp");
         new TZShapeReader(quadtree).read(world);
     }
-	
-	public Quadtree getQuadtree() {
-		return this.quadtree;
-	}
-	
-	public OffsetDateTime getLocalTime(TimeZone timeZone, long timestamp){
+
+    public Quadtree getQuadtree() {
+        return this.quadtree;
+    }
+
+    public OffsetDateTime getLocalTime(TimeZone timeZone, long timestamp){
         OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(timeZone.getID()));
         return offsetDateTime;
     }
-	
-	public com.graphhopper.timezone.api.TimeZone getTimeZone(double lat, double lon) {
+
+    public com.graphhopper.timezone.api.TimeZone getTimeZone(double lat, double lon) {
         Point point = geometryFactory.createPoint(new Coordinate(lon,lat));
         List<Object> regions = quadtree.query(point.getEnvelopeInternal());
         for(Object o : regions){
             SimpleFeature feature = (SimpleFeature) o;
             Geometry geom = (Geometry) feature.getDefaultGeometry();
             if(point.within(geom)) {
-            	String timeZoneId = (String)(feature.getAttribute("TZID"));
-            	long timestamp = new java.util.Date().getTime();
-            	TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
-            	OffsetDateTime localTime = getLocalTime(timeZone,timestamp);
-            	
-            	return new com.graphhopper.timezone.api.TimeZone(timeZoneId, new LocalTime(localTime), timeZone.getDisplayName());
+                String timeZoneId = (String)(feature.getAttribute("TZID"));
+                long timestamp = new java.util.Date().getTime();
+                TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
+                OffsetDateTime localTime = getLocalTime(timeZone,timestamp);
+
+                return new com.graphhopper.timezone.api.TimeZone(timeZoneId, new LocalTime(localTime), timeZone.getDisplayName());
             }
         }        
         return null;

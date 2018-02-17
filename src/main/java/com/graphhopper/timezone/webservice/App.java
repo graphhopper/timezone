@@ -30,7 +30,6 @@ import java.util.EnumSet;
  */
 public class App extends Application<AppConfig> {
 
-
     /*
 
      @ToDo remove meta info
@@ -72,12 +71,10 @@ public class App extends Application<AppConfig> {
 
         environment.jersey().register(timeZoneService);
 
-
 //        // healthChecks
 //        environment.healthChecks().register("app-health-check", new AppHealthCheck());
 //
 //        // filter
 //        environment.servlets().addFilter("ip-filter", new IPFilter(configuration.getIPWhiteList(), configuration.getIPBlackList())).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }
-
 }

@@ -66,22 +66,22 @@ public class TimeZoneService {
         }
 
         String[] locationTokens = location.get(0).split(",");
-        
+
         double lat = Double.parseDouble(locationTokens[0]);
         double lon = Double.parseDouble(locationTokens[1]);
         long timestamp = Long.parseLong(timestamps.get(0));
-        
+
         String timeZoneId = timeZoneReader.getTimeZone(lat,lon).getTimeZoneId();
-        
+
         if(timeZoneId == null) {
-        	throwError(BAD_REQUEST.getStatusCode(),"could not localize location " + lat + ", " + lon);
+            throwError(BAD_REQUEST.getStatusCode(),"could not localize location " + lat + ", " + lon);
         }
-        
+
         TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         OffsetDateTime localTime = timeZoneReader.getLocalTime(timeZone,timestamp);
-        
+
         com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId, new LocalTime(localTime,locale), timeZone.getDisplayName(locale));
-        
+
         return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
     }
 
@@ -92,5 +92,4 @@ public class TimeZoneService {
                 .type(MediaType.APPLICATION_JSON).
                         build());
     }
-
 }
