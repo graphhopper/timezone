@@ -38,6 +38,6 @@ public class TimeZone {
     }
 
     public String toString() {
-        return timeZoneId + " (" + displayName + " : GMT" + (localTime.getOffset() / 3600) + ")";
+        return timeZoneId + " (" + displayName + " : " + localTime.getOffsetString() + ")";
     }
 }
