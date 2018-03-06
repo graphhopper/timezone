@@ -160,6 +160,12 @@
     <!-- mvn clean deploy -P release -->
     <profiles>
         <profile>
+            <id>selected-build</id>
+            <modules>
+                <module>timezone-core</module>
+            </modules>
+        </profile>
+        <profile>
             <id>release</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
