@@ -146,7 +146,7 @@ timezone library
 ================
 
 The timezone app can also be imported into your project and run by directly interfacing with the public methods, without needing to start the web service.
-Add the project as a dependency and create a new `com.graphhopper.timezone.TimeZoneReader` object, which can be interacted with through `.getTimeZone()`.
+Add the project as a dependency and create a new `com.graphhopper.timezone.core.TimeZoneReader` object, which can be interacted with through `.getTimeZone()`.
 `.getTimeZone()` returns a TimeZone object containing all the timezone information including current time in the timezone and offset from GMT.
 
 i.e.

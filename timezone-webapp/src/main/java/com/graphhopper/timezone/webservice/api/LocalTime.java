@@ -1,4 +1,4 @@
-package com.graphhopper.timezone.api;
+package com.graphhopper.timezone.webservice.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

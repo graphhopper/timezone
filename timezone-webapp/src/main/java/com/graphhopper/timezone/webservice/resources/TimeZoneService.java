@@ -8,14 +8,18 @@
  * this material is strictly forbidden unless prior written permission
  * is obtained from GraphHopper GmbH.
  */
-package com.graphhopper.timezone.webservice;
+package com.graphhopper.timezone.webservice.resources;
+
 
 import com.codahale.metrics.annotation.Timed;
-import com.graphhopper.timezone.TimeZoneReader;
-import com.graphhopper.timezone.api.LocalTime;
+import com.graphhopper.timezone.core.TimeZones;
+
+import com.graphhopper.timezone.webservice.api.LocalTime;
+import com.graphhopper.timezone.webservice.api.TimeZoneResponse;
 import io.dropwizard.jersey.errors.ErrorMessage;
 
 import javax.ws.rs.*;
+
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -35,10 +39,10 @@ public class TimeZoneService {
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TimeZoneService.class);
 
-    private TimeZoneReader timeZoneReader;
+    private TimeZones timeZones;
 
-    public TimeZoneService(TimeZoneReader timeZoneReader) {
-        this.timeZoneReader = timeZoneReader;
+    public TimeZoneService(TimeZones timeZoneReader) {
+        this.timeZones = timeZoneReader;
     }
 
     @GET
@@ -71,17 +75,16 @@ public class TimeZoneService {
         double lon = Double.parseDouble(locationTokens[1]);
         long timestamp = Long.parseLong(timestamps.get(0));
 
-        String timeZoneId = timeZoneReader.getTimeZone(lat,lon).getTimeZoneId();
+        String timeZoneId = timeZones.getTimeZone(lat,lon).getID();
 
         if(timeZoneId == null) {
             throwError(BAD_REQUEST.getStatusCode(),"could not localize location " + lat + ", " + lon);
         }
 
         TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
-        OffsetDateTime localTime = timeZoneReader.getLocalTime(timeZone,timestamp);
+        OffsetDateTime localTime = timeZones.getOffsetDateTime(timestamp,timeZone);
 
-        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId, new LocalTime(localTime,locale), timeZone.getDisplayName(locale));
-
+        TimeZoneResponse timeZoneResponse = new TimeZoneResponse(timeZoneId, new LocalTime(localTime,locale), timeZone.getDisplayName(locale));
         return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
     }
 

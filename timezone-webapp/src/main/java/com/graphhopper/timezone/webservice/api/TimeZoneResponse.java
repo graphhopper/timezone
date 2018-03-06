@@ -1,13 +1,14 @@
-package com.graphhopper.timezone.api;
+package com.graphhopper.timezone.webservice.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by schroeder on 01/03/17.
  */
-public class TimeZone {
+public class TimeZoneResponse {
 
     @NotNull
     private String timeZoneId;
@@ -16,7 +17,7 @@ public class TimeZone {
 
     private LocalTime localTime;
 
-    public TimeZone(String timeZoneId, LocalTime localTime, String displayName) {
+    public TimeZoneResponse(String timeZoneId, LocalTime localTime, String displayName) {
         this.timeZoneId = timeZoneId;
         this.localTime = localTime;
         this.displayName = displayName;

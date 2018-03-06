@@ -1,6 +1,6 @@
 package com.graphhopper.timezone.webservice;
 
-import com.graphhopper.timezone.TimeZoneReader;
+import com.graphhopper.timezone.core.TimeZones;
 
 /*
  * Copyright 2014-2016 GraphHopper GmbH
@@ -13,7 +13,7 @@ import com.graphhopper.timezone.TimeZoneReader;
  * is obtained from GraphHopper GmbH.
  */
 
-import com.graphhopper.timezone.webservice.TimeZoneService;
+import com.graphhopper.timezone.webservice.resources.TimeZoneService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -66,8 +66,9 @@ public class App extends Application<AppConfig> {
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-        TimeZoneReader timeZoneReader = new TimeZoneReader();
-        TimeZoneService timeZoneService = new TimeZoneService(timeZoneReader);
+        TimeZones timeZones = new TimeZones();
+        timeZones.init();
+        TimeZoneService timeZoneService = new TimeZoneService(timeZones);
 
         environment.jersey().register(timeZoneService);
 

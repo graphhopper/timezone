@@ -15,8 +15,6 @@ logging:
 
   loggers:
     "org.hibernate": INFO
-    "com.graphhopper.vrp": DEBUG
-    "com.graphhopper.jsprit": WARN
 
   appenders:
     - type: console

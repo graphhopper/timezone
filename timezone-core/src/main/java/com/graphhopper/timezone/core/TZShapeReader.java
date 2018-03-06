@@ -31,23 +31,29 @@ public class TZShapeReader {
     public void read(URL file) throws IOException {
         Map<String, Object> map = new HashMap<>();
         map.put("url", file);
-
-
-        DataStore dataStore = DataStoreFinder.getDataStore(map);
-        String typeName = dataStore.getTypeNames()[0];
-
-        FeatureSource<SimpleFeatureType, SimpleFeature> source = dataStore.getFeatureSource(typeName);
-
-        FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures();
-
-        FeatureIterator<SimpleFeature> features = collection.features();
+        FeatureIterator<SimpleFeature> features = null;
+        DataStore dataStore = null;
         int count = 0;
-        LOGGER.info("reading world time zones ...");
-        while (features.hasNext()) {
-            count++;
-            SimpleFeature feature = features.next();
-            ReferencedEnvelope referencedEnvelope = new ReferencedEnvelope(feature.getBounds());
-            quadtree.insert(referencedEnvelope,feature);
+        try{
+            dataStore = DataStoreFinder.getDataStore(map);
+            String typeName = dataStore.getTypeNames()[0];
+            FeatureSource<SimpleFeatureType, SimpleFeature> source = dataStore.getFeatureSource(typeName);
+            FeatureCollection<SimpleFeatureType, SimpleFeature> collection = source.getFeatures();
+            features = collection.features();
+            LOGGER.info("reading world time zones ...");
+            while (features.hasNext()) {
+                count++;
+                SimpleFeature feature = features.next();
+                ReferencedEnvelope referencedEnvelope = new ReferencedEnvelope(feature.getBounds());
+                quadtree.insert(referencedEnvelope,feature);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (features != null)
+                features.close();
+            if (dataStore != null)
+                dataStore.dispose();
         }
         LOGGER.info(count + " features read");
     }
