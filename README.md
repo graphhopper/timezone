@@ -1,7 +1,26 @@
-timezone app
-============
+timezone
+========
 ![Build Status](https://travis-ci.org/graphhopper/timezone.svg?branch=master)
 
+## Timezone Core
+
+Use it like this:
+
+<pre><code>TimeZones timeZones = new TimeZones();
+timeZones.init();
+
+TimeZone tz = timeZones.getTimeZone(40.713956,-75.767577);
+long unixTimeStamp = 1488363179;
+OffsetDateTime offsetDateTime = timeZones.getOffsetDateTime(unixTimeStamp,tz);
+System.out.println(offsetDateTime);
+
+//or even shorter
+OffsetDateTime offsetDateTime2 = timeZones.getOffsetDateTime(unixTimeStamp,40.713956,-75.767577);
+System.out.println(offsetDateTime2);
+
+</pre><c/ode>
+
+## Timezone Webapp
 Our timezone app turns your location and timestamp into timezone and local time. Thus, if you need local time in your application, just ask GraphHopper timezone. It is microservice you can run wherever you like.
 
 ### Example 
