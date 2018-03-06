@@ -8,6 +8,7 @@ Use it like this:
 
 <pre><code>TimeZones timeZones = new TimeZones();
 timeZones.init();
+
 TimeZone tz = timeZones.getTimeZone(40.713956,-75.767577);
 long unixTimeStamp = 1488363179;
 OffsetDateTime offsetDateTime = timeZones.getOffsetDateTime(unixTimeStamp,tz);
