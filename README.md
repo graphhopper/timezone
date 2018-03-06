@@ -2,6 +2,8 @@ timezone
 ========
 ![Build Status](https://travis-ci.org/graphhopper/timezone.svg?branch=master)
 
+Requires Java 1.8.
+
 ## Timezone Core
 
 Use it like this:
