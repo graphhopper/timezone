@@ -37,5 +37,7 @@ public class TimeZone {
         return localTime;
     }
 
-
+    public String toString() {
+        return timeZoneId + " (" + displayName + " : " + localTime.getOffsetString() + ")";
+    }
 }

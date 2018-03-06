@@ -50,6 +50,5 @@ public class TZShapeReader {
             quadtree.insert(referencedEnvelope,feature);
         }
         LOGGER.info(count + " features read");
-
     }
 }

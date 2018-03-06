@@ -12,6 +12,7 @@ import java.util.Locale;
 public class LocalTime {
 
     private final int offset;
+    private final String offsetString;
     private final int year;
     private final String month;
     private final int dayOfMonth;
@@ -24,6 +25,7 @@ public class LocalTime {
 
     public LocalTime(OffsetDateTime offsetDateTime, Locale locale) {
         offset = offsetDateTime.getOffset().getTotalSeconds();
+        offsetString = offsetDateTime.getOffset().toString();
         year = offsetDateTime.getYear();
         month = offsetDateTime.getMonth().getDisplayName(TextStyle.FULL,locale);
         dayOfMonth = offsetDateTime.getDayOfMonth();
@@ -35,9 +37,18 @@ public class LocalTime {
         nano = offsetDateTime.getNano();
     }
 
+    public LocalTime(OffsetDateTime offsetDateTime) {
+        this(offsetDateTime, Locale.forLanguageTag("en"));
+    }
+
     @JsonProperty("offset")
-    public int getOffset(){
+    public int getOffset() {
         return offset;
+    }
+    
+    @JsonProperty("offset_string")
+    public String getOffsetString() {
+    	return "GMT" + offsetString;
     }
 
     @JsonProperty("day_of_month")

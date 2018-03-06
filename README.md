@@ -142,6 +142,22 @@ second | -
 nano | -
 
 
+timezone library
+================
+
+The timezone app can also be imported into your project and run by directly interfacing with the public methods, without needing to start the web service.
+Add the project as a dependency and create a new `com.graphhopper.timezone.TimeZoneReader` object, which can be interacted with through `.getTimeZone()`.
+`.getTimeZone()` returns a TimeZone object containing all the timezone information including current time in the timezone and offset from GMT.
+
+i.e.
+```java
+TimeZoneReader tzReader = new TimeZoneReader();
+com.graphhopper.timezone.api.TimeZone timeZone = tzReader.getTimeZone(6.2430, -75.5791);
+```
+
+The above returns a TimeZone object for Medellin in Colombia.
+
+
 ### TZ data
 Make sure that you have updated your java environment with the latest tz data, otherwise old DST data might yield wrong local times. For example, such events ["Russia Returns to Standard Time All Year"](https://www.timeanddate.com/news/time/russia-abandons-permanent-summer-time.html) cause wrong local time calculations if you have not updated your JRE/JDK. You can update it as described here:
 

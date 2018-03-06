@@ -1,4 +1,6 @@
-package com.graphhopper.timezone;
+package com.graphhopper.timezone.webservice;
+
+import com.graphhopper.timezone.TimeZoneReader;
 
 /*
  * Copyright 2014-2016 GraphHopper GmbH
@@ -11,9 +13,7 @@ package com.graphhopper.timezone;
  * is obtained from GraphHopper GmbH.
  */
 
-import com.graphhopper.timezone.core.TZShapeReader;
-import com.graphhopper.timezone.resources.TimeZoneService;
-import com.vividsolutions.jts.index.quadtree.Quadtree;
+import com.graphhopper.timezone.webservice.TimeZoneService;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -23,14 +23,12 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import java.io.IOException;
-import java.net.URL;
 import java.util.EnumSet;
 
 /**
  * Created by schroeder on 22/12/14.
  */
 public class App extends Application<AppConfig> {
-
 
     /*
 
@@ -68,13 +66,10 @@ public class App extends Application<AppConfig> {
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-        Quadtree quadtree = new Quadtree();
-        URL world = this.getClass().getResource("tz_world.shp");
-        new TZShapeReader(quadtree).read(world);
-        TimeZoneService timeZoneService = new TimeZoneService(quadtree);
+        TimeZoneReader timeZoneReader = new TimeZoneReader();
+        TimeZoneService timeZoneService = new TimeZoneService(timeZoneReader);
 
         environment.jersey().register(timeZoneService);
-
 
 //        // healthChecks
 //        environment.healthChecks().register("app-health-check", new AppHealthCheck());
@@ -82,5 +77,4 @@ public class App extends Application<AppConfig> {
 //        // filter
 //        environment.servlets().addFilter("ip-filter", new IPFilter(configuration.getIPWhiteList(), configuration.getIPBlackList())).addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }
-
 }

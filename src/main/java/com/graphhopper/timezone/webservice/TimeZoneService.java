@@ -8,27 +8,19 @@
  * this material is strictly forbidden unless prior written permission
  * is obtained from GraphHopper GmbH.
  */
-package com.graphhopper.timezone.resources;
+package com.graphhopper.timezone.webservice;
 
 import com.codahale.metrics.annotation.Timed;
+import com.graphhopper.timezone.TimeZoneReader;
 import com.graphhopper.timezone.api.LocalTime;
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.index.quadtree.Quadtree;
 import io.dropwizard.jersey.errors.ErrorMessage;
-import org.geotools.geometry.jts.JTSFactoryFinder;
-import org.opengis.feature.simple.SimpleFeature;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,12 +35,10 @@ public class TimeZoneService {
 
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(TimeZoneService.class);
 
-    private Quadtree quadtree;
+    private TimeZoneReader timeZoneReader;
 
-    private GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory(null);
-
-    public TimeZoneService(Quadtree quadtree) {
-        this.quadtree = quadtree;
+    public TimeZoneService(TimeZoneReader timeZoneReader) {
+        this.timeZoneReader = timeZoneReader;
     }
 
     @GET
@@ -76,34 +66,23 @@ public class TimeZoneService {
         }
 
         String[] locationTokens = location.get(0).split(",");
+
         double lat = Double.parseDouble(locationTokens[0]);
         double lon = Double.parseDouble(locationTokens[1]);
         long timestamp = Long.parseLong(timestamps.get(0));
-        String timeZoneId = getTimeZone(lat,lon);
-        TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
-        OffsetDateTime localTime = getLocalTime(timeZone,timestamp);
-        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId, new LocalTime(localTime,locale), timeZone.getDisplayName(locale));
-        return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
 
-    }
+        String timeZoneId = timeZoneReader.getTimeZone(lat,lon).getTimeZoneId();
 
-    private OffsetDateTime getLocalTime(TimeZone timeZone, long timestamp){
-        OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.of(timeZone.getID()));
-        return offsetDateTime;
-    }
-
-    private String getTimeZone(double lat, double lon){
-        Point point = geometryFactory.createPoint(new Coordinate(lon,lat));
-        List<Object> regions = quadtree.query(point.getEnvelopeInternal());
-        for(Object o : regions){
-            SimpleFeature feature = (SimpleFeature) o;
-            Geometry geom = (Geometry) feature.getDefaultGeometry();
-            if(point.within(geom)) {
-                return (String)(feature.getAttribute("TZID"));
-            }
+        if(timeZoneId == null) {
+            throwError(BAD_REQUEST.getStatusCode(),"could not localize location " + lat + ", " + lon);
         }
-        throwError(BAD_REQUEST.getStatusCode(),"could not localize location " + lat + ", " + lon);
-        return null;
+
+        TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
+        OffsetDateTime localTime = timeZoneReader.getLocalTime(timeZone,timestamp);
+
+        com.graphhopper.timezone.api.TimeZone timeZoneResponse = new com.graphhopper.timezone.api.TimeZone(timeZoneId, new LocalTime(localTime,locale), timeZone.getDisplayName(locale));
+
+        return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
     }
 
     private void throwError(int statusCode, String msg){
@@ -113,5 +92,4 @@ public class TimeZoneService {
                 .type(MediaType.APPLICATION_JSON).
                         build());
     }
-
 }
