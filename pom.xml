@@ -8,7 +8,7 @@
     <artifactId>timezone</artifactId>
     <version>1.0</version>
 
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>timezone</name>
     <description>It turns location and unix timestamp into timezone and local time.</description>
