@@ -29,6 +29,13 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git@github.com:graphhopper/timezone.git</connection>
+        <developerConnection>scm:git:https://github.com/graphhopper/timezone.git</developerConnection>
+        <url>http://github.com/graphhopper/timezone/tree/master</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <issueManagement>
         <system>github</system>
         <url>https://github.com/graphhopper/timezone/issues</url>
