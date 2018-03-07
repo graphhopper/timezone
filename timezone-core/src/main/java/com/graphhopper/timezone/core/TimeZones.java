@@ -1,6 +1,8 @@
 package com.graphhopper.timezone.core;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -19,14 +21,23 @@ import com.vividsolutions.jts.index.quadtree.Quadtree;
 
 public class TimeZones {
 
+    public static void main(String[] args) throws IOException {
+        TimeZones timeZones = new TimeZones();
+        timeZones.initWithWorldData(new File("./world-data/tz_world.shp").toURI().toURL());
+        TimeZone tz = timeZones.getTimeZone(40.713956,-75.767577);
+        long unixTimeStamp = 1488363179;
+        OffsetDateTime offsetDateTime = timeZones.getOffsetDateTime(unixTimeStamp,tz);
+        System.out.println(offsetDateTime);
+    }
+
     private GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory(null);
 
     private Quadtree quadtree;
 
-    public void init() throws IOException {
+    public void initWithWorldData(URL worldDataShp) throws IOException {
         this.quadtree = new Quadtree();
-        URL world = this.getClass().getResource("tz_world.shp");
-        new TZShapeReader(quadtree).read(world);
+//        URL world = this.getClass().getResource("tz_world.shp");
+        new TZShapeReader(quadtree).read(worldDataShp);
     }
 
     public Quadtree getQuadtree() {
