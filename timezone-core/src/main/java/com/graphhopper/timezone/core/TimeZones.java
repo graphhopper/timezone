@@ -21,22 +21,12 @@ import com.vividsolutions.jts.index.quadtree.Quadtree;
 
 public class TimeZones {
 
-    public static void main(String[] args) throws IOException {
-        TimeZones timeZones = new TimeZones();
-        timeZones.initWithWorldData(new File("./world-data/tz_world.shp").toURI().toURL());
-        TimeZone tz = timeZones.getTimeZone(40.713956,-75.767577);
-        long unixTimeStamp = 1488363179;
-        OffsetDateTime offsetDateTime = timeZones.getOffsetDateTime(unixTimeStamp,tz);
-        System.out.println(offsetDateTime);
-    }
-
     private GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory(null);
 
     private Quadtree quadtree;
 
     public void initWithWorldData(URL worldDataShp) throws IOException {
         this.quadtree = new Quadtree();
-//        URL world = this.getClass().getResource("tz_world.shp");
         new TZShapeReader(quadtree).read(worldDataShp);
     }
 

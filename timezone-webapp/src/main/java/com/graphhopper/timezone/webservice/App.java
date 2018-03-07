@@ -22,6 +22,7 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 
@@ -67,7 +68,7 @@ public class App extends Application<AppConfig> {
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
         TimeZones timeZones = new TimeZones();
-        timeZones.init();
+        timeZones.initWithWorldData(new File(configuration.getWorldDataLocation()).toURI().toURL());
         TimeZoneService timeZoneService = new TimeZoneService(timeZones);
 
         environment.jersey().register(timeZoneService);

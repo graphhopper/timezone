@@ -84,7 +84,8 @@ public class TimeZoneService {
         TimeZone timeZone = TimeZone.getTimeZone(timeZoneId);
         OffsetDateTime localTime = timeZones.getOffsetDateTime(timestamp,timeZone);
 
-        TimeZoneResponse timeZoneResponse = new TimeZoneResponse(timeZoneId, new LocalTime(localTime,locale), timeZone.getDisplayName(locale));
+        String displayName = timeZone.getDisplayName(locale);
+        TimeZoneResponse timeZoneResponse = new TimeZoneResponse(timeZoneId, new LocalTime(localTime,locale), displayName);
         return Response.status(Response.Status.OK).entity(timeZoneResponse).build();
     }
 

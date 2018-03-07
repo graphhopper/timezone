@@ -21,5 +21,5 @@ logging:
       timeZone: UTC
       logFormat: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
 
-
+worldDataLocation: "/Users/schroeder/IdeaProjects/timezone/world-data/tz_world.shp"
 
