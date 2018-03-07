@@ -6,8 +6,7 @@ Requires Java 1.8.
 
 ## Timezone Core
 
-The timezone project can be imported into your project and run by directly interfacing with the public methods, without needing to start the web service.
-Add the project as a dependency and create a new `com.graphhopper.timezone.core.TimeZones` object, which can be interacted with through `.getTimeZone()` and `.getOffsetDateTime()` which includes all local time and timezone information such as current time in the timezone and offset from GMT.
+The timezone project can be imported into your project and run by directly interfacing with the public methods, without needing to start the web service. Add the project as a dependency and create a new `TimeZones` object, which can be interacted with through `.getTimeZone()` and `.getOffsetDateTime()` including all local time and timezone information such as current time in the timezone and offset from GMT.
 
 Example:
 
