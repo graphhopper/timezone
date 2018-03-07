@@ -12,7 +12,7 @@ Add the project as a dependency and create a new `com.graphhopper.timezone.core.
 Example:
 
 <pre><code>TimeZones timeZones = new TimeZones();
-timeZones.init();
+timeZones.initWithWorldData(new File("./world-data/tz_world.shp").toURI().toURL());
 
 TimeZone tz = timeZones.getTimeZone(40.713956,-75.767577);
 long unixTimeStamp = 1488363179;
